@@ -1,16 +1,16 @@
 name: Greetings
 
-on:
-  issues:
-    types: [opened]
+on: [pull_request, issues]
 
 jobs:
   greeting:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
-    - uses: Zipify/Greeting-action@main
+    - uses: actions/first-interaction@v1
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        issue_message: 'Hello @${{github.actor}}, <br>
-                        Thank you for opening an issue. :octocat: <br>
-                        To get assigned to this particular issue please use <b>/assign</b><br>
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: 'Message that will be displayed on users first issue'
+        pr-message: 'Message that will be displayed on users first pull request'
